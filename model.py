@@ -556,7 +556,7 @@ class MyModel(AIxBlockMLBase):
                         torch_dtype=dtype,
                         device_map="auto",
                         token=token,
-                        max_new_tokens=256
+                        max_new_tokens=max_new_token
                     )
                 else:
                     print("Using CPU.")
@@ -565,7 +565,7 @@ class MyModel(AIxBlockMLBase):
                         model=model_source,
                         device_map="cpu",
                         token=token,
-                        max_new_tokens=256
+                        max_new_tokens=max_new_token
                     )
 
                 return pipe
