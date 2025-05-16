@@ -1,6 +1,6 @@
 transformers
 huggingface_hub
-accelerate>=0.31.0
+accelerate
 prometheus-client
 aixblock-ml
 aixblock-sdk==0.0.5
@@ -26,7 +26,7 @@ datasets
 trl
 peft
 scipy
-bitsandbytes>=0.41.3
+bitsandbytes
 langchain
 langchain_community
 nvidia-ml-py
