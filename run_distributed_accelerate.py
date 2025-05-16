@@ -264,7 +264,7 @@ trainer = SFTTrainer(
     model=model,
     train_dataset=train_dataset,
     eval_dataset=eval_dataset,
-    peft_config=peft_config,
+    # peft_config=peft_config,
     # data_collator=DataCollatorForSeq2Seq(tokenizer=tokenizer),
     # max_seq_length=512,
     # tokenizer=tokenizer,
