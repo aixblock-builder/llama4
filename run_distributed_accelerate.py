@@ -95,7 +95,7 @@ else:
     attn_implementation = "sdpa"
 torch.set_grad_enabled(True)
 model_name = (
-    args.model_id if args.model_id else "meta-llama/Llama-4-Scout-17B-16E-Instruct"
+    args.model_id if args.model_id else "fahadh4ilyas/Llama-4-Scout-17B-16E-Instruct-INT4"
 )
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
