@@ -311,7 +311,43 @@ except RuntimeError as e:
 trainer.push_to_hub()
 output_dir = os.path.join("./data/checkpoint", hf_model_id.split("/")[-1])
 trainer.save_model(output_dir)
-# free the memory again
+
+from huggingface_hub import whoami, ModelCard, ModelCardData, upload_file
+user = whoami(token=push_to_hub_token)['name']
+repo_id = f"{user}/{hf_model_id}"
+card = ModelCard.load(repo_id)
+sections = card.text.split("## ")
+
+new_sections = []
+for section in sections:
+    if section.lower().startswith("citations"):
+        new_section = (
+            "Citations\n\n"
+            "This model was fine-tuned by **AIxBlock**.\n\n"
+            "It was trained using a proprietary training workflow from **AIxBlock**, "
+            "a project under the ownership of the company.\n\n"
+            "© 2025 AIxBlock. All rights reserved.\n"
+        )
+        new_sections.append(new_section)
+    else:
+        new_sections.append(section)
+
+card.text = "## ".join(new_sections)
+
+readme_path = "README.md"
+with open(readme_path, "w") as f:
+    f.write(card.text)
+
+upload_file(
+    path_or_fileobj=readme_path,
+    path_in_repo="README.md",
+    repo_id=repo_id,
+    token=push_to_hub_token,
+    commit_message="Update citation to AIxBlock format"
+)
+
+print("✅ README.md đã được cập nhật.")
+
 del model
 del trainer
 torch.cuda.empty_cache()
